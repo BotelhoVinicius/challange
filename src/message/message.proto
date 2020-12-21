@@ -1,0 +1,10 @@
+syntax = "proto2";
+
+package challenge;
+
+message MessageInfo {
+  required int32 payload_size = 1;
+  required int64 time_stamp = 2;
+  required string prefix = 3;
+  required bytes payload = 4;
+}
