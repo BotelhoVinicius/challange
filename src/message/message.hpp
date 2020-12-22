@@ -16,6 +16,8 @@ public:
   bool Read(std::string filePath, std::string prefix);
   bool Write(std::string location);
 
+  std::vector<MessageInfo> message() { return message_; };
+
 private:
   // from protocol buffer
   std::vector<MessageInfo> message_;

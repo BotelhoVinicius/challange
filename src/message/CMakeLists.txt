@@ -1,9 +1,5 @@
 project(Message)
 
-include(FindProtobuf)
-
-find_package(Protobuf REQUIRED)
-
 include_directories(${PROTOBUF_INCLUDE_DIR})
 
 add_library(Message STATIC message.cpp message.pb.cc)

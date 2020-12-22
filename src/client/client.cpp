@@ -1,5 +1,8 @@
 #include "client.hpp"
 
+#include "message.hpp"
+#include "session.hpp"
+
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -7,7 +10,7 @@
 namespace challenge {
 namespace client {
 
-bool Client::Connect(std::string configurationPath) {
+bool Client::InitializeConfig(std::string configurationPath) {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
@@ -21,6 +24,9 @@ bool Client::Connect(std::string configurationPath) {
 
   if (serverInformation_.has_address()) {
     std::cout << "Server Adress: " << serverInformation_.address() << std::endl;
+  } else {
+    std::cout << "Server Address: localhost" << std::endl;
+    serverInformation_.set_address("localhost");
   }
   std::cout << "Server - Port: " << serverInformation_.port() << std::endl;
   std::cout << "Server - Package Size: " << serverInformation_.package_size()
@@ -31,6 +37,8 @@ bool Client::Connect(std::string configurationPath) {
             << std::endl;
 
   google::protobuf::ShutdownProtobufLibrary();
+
+  initialized_ = true;
 
   return true;
 }
@@ -50,8 +58,39 @@ bool Client::CreateConfig(std::string configFile, std::string address,
                       std::ios::out | std::ios::trunc | std::ios::binary);
   if (!serverInformation_.SerializeToOstream(&output)) {
     std::cerr << "Failed to write config file" << std::endl;
+    return false;
   }
+
   google::protobuf::ShutdownProtobufLibrary();
+  return true;
+}
+
+bool Client::SendFile(std::string filePath) {
+  if (!initialized_) {
+    std::cerr << "First Initialize Client with server information."
+              << std::endl;
+  }
+
+  session::Session session;
+  message::Message message;
+
+  if (!message.Read(filePath, fileName())) {
+    return false;
+  }
+
+  session.Start(serverInformation_.address(), std::to_string(port()));
+
+  bool success{true};
+  for (MessageInfo msg : message.message()) {
+    std::string str;
+    success &= msg.SerializeToString(&str);
+    session.Write(str);
+    success &= session.Read();
+  }
+
+  session.Stop();
+
+  return success;
 }
 
 } // namespace client

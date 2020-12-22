@@ -12,10 +12,11 @@ public:
   Client(){};
   ~Client(){};
 
-  bool Connect(std::string configurationPath);
+  bool InitializeConfig(std::string configurationPath);
   bool CreateConfig(std::string configFile, std::string address, int32_t port,
                     int32_t packageSize, std::string fileName,
                     int32_t timeout_ms);
+  bool SendFile(std::string filePath);
 
   std::string address() { return serverInformation_.address(); }
   int32_t port() { return serverInformation_.port(); }
@@ -25,6 +26,8 @@ public:
 
 private:
   ServerInfo serverInformation_;
+
+  bool initialized_{false};
 };
 
 } // namespace client

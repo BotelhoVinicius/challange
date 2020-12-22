@@ -1,19 +1,24 @@
 project(Client)
 
-include(FindProtobuf)
+include_directories(${PROTOBUF_INCLUDE_DIR}
+  ${BOOST_INCLUDE_DIRS}
+  ${CMAKE_SOURCE_DIR}/src/message)
 
-find_package(Protobuf REQUIRED)
-
-include_directories(${PROTOBUF_INCLUDE_DIR})
-
-add_library(Client STATIC client.cpp client.pb.cc)
+add_library(
+  Client
+  STATIC
+    client.cpp client.pb.cc)
 
 target_link_libraries(Client
-  ${PROTOBUF_LIBRARY})
+  Message Session
+  ${PROTOBUF_LIBRARY}
+  boost_system)
 
-file(GLOB CLIENT_HEADERS client.hpp client.pb.h)
+add_library(
+  Session
+  STATIC
+    session.cpp)
 
-set_target_properties(
-  Client
-  PROPERTIES
-    PUBLIC_HEADER "${CLIENT_HEADERS}")
+target_link_libraries(Session
+  pthread
+  boost_system)
