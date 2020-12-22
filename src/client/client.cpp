@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <thread>
 
 namespace challenge {
 namespace client {
@@ -16,24 +17,22 @@ bool Client::InitializeConfig(std::string configurationPath) {
   {
     std::fstream fileStream(configurationPath.c_str(),
                             std::ios::in | std::ios::binary);
-    if (!serverInformation_.ParseFromIstream(&fileStream)) {
+    if (!clientInformation_.ParseFromIstream(&fileStream)) {
       std::cerr << "Failed to parse server configuration" << std::endl;
       return false;
     }
   }
 
-  if (serverInformation_.has_address()) {
-    std::cout << "Server Adress: " << serverInformation_.address() << std::endl;
+  if (clientInformation_.has_address()) {
+    std::cout << "Server Adress: " << clientInformation_.address() << std::endl;
   } else {
     std::cout << "Server Address: localhost" << std::endl;
-    serverInformation_.set_address("localhost");
+    clientInformation_.set_address("localhost");
   }
-  std::cout << "Server - Port: " << serverInformation_.port() << std::endl;
-  std::cout << "Server - Package Size: " << serverInformation_.package_size()
+  std::cout << "Server - Port: " << clientInformation_.port() << std::endl;
+  std::cout << "Server - Package Size: " << clientInformation_.package_size()
             << std::endl;
-  std::cout << "Server - File Name: " << serverInformation_.file_name()
-            << std::endl;
-  std::cout << "Server - Timeout(ms): " << serverInformation_.timeout_ms()
+  std::cout << "Server - File Name: " << clientInformation_.file_name()
             << std::endl;
 
   google::protobuf::ShutdownProtobufLibrary();
@@ -45,18 +44,17 @@ bool Client::InitializeConfig(std::string configurationPath) {
 
 bool Client::CreateConfig(std::string configFile, std::string address,
                           int32_t port, int32_t packageSize,
-                          std::string fileName, int32_t timeout_ms) {
+                          std::string fileName) {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  serverInformation_.set_address(address);
-  serverInformation_.set_port(port);
-  serverInformation_.set_package_size(packageSize);
-  serverInformation_.set_file_name(fileName);
-  serverInformation_.set_timeout_ms(timeout_ms);
+  clientInformation_.set_address(address);
+  clientInformation_.set_port(port);
+  clientInformation_.set_package_size(packageSize);
+  clientInformation_.set_file_name(fileName);
 
   std::fstream output(configFile.c_str(),
                       std::ios::out | std::ios::trunc | std::ios::binary);
-  if (!serverInformation_.SerializeToOstream(&output)) {
+  if (!clientInformation_.SerializeToOstream(&output)) {
     std::cerr << "Failed to write config file" << std::endl;
     return false;
   }
@@ -72,22 +70,27 @@ bool Client::SendFile(std::string filePath) {
   }
 
   session::Session session;
-  message::Message message;
+  message::Message message(clientInformation_.package_size());
 
   if (!message.Read(filePath, fileName())) {
     return false;
   }
 
-  session.Start(serverInformation_.address(), std::to_string(port()));
+  std::cout << "Starting Session." << std::endl;
+  session.Start(clientInformation_.address(), std::to_string(port()));
+  std::this_thread::sleep_for(std::chrono::seconds(1));
 
+  std::cout << "Sending " << message.message().size() << " messages."
+            << std::endl;
   bool success{true};
   for (MessageInfo msg : message.message()) {
     std::string str;
     success &= msg.SerializeToString(&str);
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     session.Write(str);
-    success &= session.Read();
   }
 
+  std::cout << "Stoping Session." << std::endl;
   session.Stop();
 
   return success;

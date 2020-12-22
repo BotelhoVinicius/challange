@@ -16,6 +16,7 @@ public:
   bool Read(std::string filePath, std::string prefix);
   bool Write(std::string location);
 
+  void PushMessage(MessageInfo msg) { message_.push_back(msg); }
   std::vector<MessageInfo> message() { return message_; };
 
 private:

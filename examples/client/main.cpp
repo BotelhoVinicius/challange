@@ -3,7 +3,8 @@
 int main() {
   challenge::client::Client client;
 
-  client.InitializeConfig("connectionInfo");
+  client.CreateConfig("clientInfo", "server", 5050, 32, "Client");
+  client.InitializeConfig("clientInfo");
 
   return 0;
 }

@@ -14,18 +14,16 @@ public:
 
   bool InitializeConfig(std::string configurationPath);
   bool CreateConfig(std::string configFile, std::string address, int32_t port,
-                    int32_t packageSize, std::string fileName,
-                    int32_t timeout_ms);
+                    int32_t packageSize, std::string fileName);
   bool SendFile(std::string filePath);
 
-  std::string address() { return serverInformation_.address(); }
-  int32_t port() { return serverInformation_.port(); }
-  int32_t packageSize() { return serverInformation_.package_size(); }
-  std::string fileName() { return serverInformation_.file_name(); }
-  int32_t timeoutMs() { return serverInformation_.timeout_ms(); }
+  std::string address() { return clientInformation_.address(); }
+  int32_t port() { return clientInformation_.port(); }
+  int32_t packageSize() { return clientInformation_.package_size(); }
+  std::string fileName() { return clientInformation_.file_name(); }
 
 private:
-  ServerInfo serverInformation_;
+  ClientInfo clientInformation_;
 
   bool initialized_{false};
 };

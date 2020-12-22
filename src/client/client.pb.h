@@ -36,20 +36,20 @@ void protobuf_AddDesc_client_2eproto();
 void protobuf_AssignDesc_client_2eproto();
 void protobuf_ShutdownFile_client_2eproto();
 
-class ServerInfo;
+class ClientInfo;
 
 // ===================================================================
 
-class ServerInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:challenge.ServerInfo)
+class ClientInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:challenge.ClientInfo)
                                                        */
 {
 public:
-  ServerInfo();
-  virtual ~ServerInfo();
+  ClientInfo();
+  virtual ~ClientInfo();
 
-  ServerInfo(const ServerInfo &from);
+  ClientInfo(const ClientInfo &from);
 
-  inline ServerInfo &operator=(const ServerInfo &from) {
+  inline ClientInfo &operator=(const ClientInfo &from) {
     CopyFrom(from);
     return *this;
   }
@@ -63,19 +63,19 @@ public:
   }
 
   static const ::google::protobuf::Descriptor *descriptor();
-  static const ServerInfo &default_instance();
+  static const ClientInfo &default_instance();
 
-  void Swap(ServerInfo *other);
+  void Swap(ClientInfo *other);
 
   // implements Message ----------------------------------------------
 
-  inline ServerInfo *New() const { return New(NULL); }
+  inline ClientInfo *New() const { return New(NULL); }
 
-  ServerInfo *New(::google::protobuf::Arena *arena) const;
+  ClientInfo *New(::google::protobuf::Arena *arena) const;
   void CopyFrom(const ::google::protobuf::Message &from);
   void MergeFrom(const ::google::protobuf::Message &from);
-  void CopyFrom(const ServerInfo &from);
-  void MergeFrom(const ServerInfo &from);
+  void CopyFrom(const ClientInfo &from);
+  void MergeFrom(const ClientInfo &from);
   void Clear();
   bool IsInitialized() const;
 
@@ -96,7 +96,7 @@ private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(ServerInfo *other);
+  void InternalSwap(ClientInfo *other);
 
 private:
   inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
@@ -151,14 +151,7 @@ public:
   ::std::string *release_file_name();
   void set_allocated_file_name(::std::string *file_name);
 
-  // required int32 timeout_ms = 5;
-  bool has_timeout_ms() const;
-  void clear_timeout_ms();
-  static const int kTimeoutMsFieldNumber = 5;
-  ::google::protobuf::int32 timeout_ms() const;
-  void set_timeout_ms(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:challenge.ServerInfo)
+  // @@protoc_insertion_point(class_scope:challenge.ClientInfo)
 private:
   inline void set_has_address();
   inline void clear_has_address();
@@ -168,8 +161,6 @@ private:
   inline void clear_has_package_size();
   inline void set_has_file_name();
   inline void clear_has_file_name();
-  inline void set_has_timeout_ms();
-  inline void clear_has_timeout_ms();
 
   // helper for ByteSize()
   int RequiredFieldsByteSizeFallback() const;
@@ -181,70 +172,69 @@ private:
   ::google::protobuf::int32 port_;
   ::google::protobuf::int32 package_size_;
   ::google::protobuf::internal::ArenaStringPtr file_name_;
-  ::google::protobuf::int32 timeout_ms_;
   friend void protobuf_AddDesc_client_2eproto();
   friend void protobuf_AssignDesc_client_2eproto();
   friend void protobuf_ShutdownFile_client_2eproto();
 
   void InitAsDefaultInstance();
-  static ServerInfo *default_instance_;
+  static ClientInfo *default_instance_;
 };
 // ===================================================================
 
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// ServerInfo
+// ClientInfo
 
 // optional string address = 1;
-inline bool ServerInfo::has_address() const {
+inline bool ClientInfo::has_address() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ServerInfo::set_has_address() { _has_bits_[0] |= 0x00000001u; }
-inline void ServerInfo::clear_has_address() { _has_bits_[0] &= ~0x00000001u; }
-inline void ServerInfo::clear_address() {
+inline void ClientInfo::set_has_address() { _has_bits_[0] |= 0x00000001u; }
+inline void ClientInfo::clear_has_address() { _has_bits_[0] &= ~0x00000001u; }
+inline void ClientInfo::clear_address() {
   address_.ClearToEmptyNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
   clear_has_address();
 }
-inline const ::std::string &ServerInfo::address() const {
-  // @@protoc_insertion_point(field_get:challenge.ServerInfo.address)
+inline const ::std::string &ClientInfo::address() const {
+  // @@protoc_insertion_point(field_get:challenge.ClientInfo.address)
   return address_.GetNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ServerInfo::set_address(const ::std::string &value) {
+inline void ClientInfo::set_address(const ::std::string &value) {
   set_has_address();
   address_.SetNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:challenge.ServerInfo.address)
+  // @@protoc_insertion_point(field_set:challenge.ClientInfo.address)
 }
-inline void ServerInfo::set_address(const char *value) {
+inline void ClientInfo::set_address(const char *value) {
   set_has_address();
   address_.SetNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:challenge.ServerInfo.address)
+  // @@protoc_insertion_point(field_set_char:challenge.ClientInfo.address)
 }
-inline void ServerInfo::set_address(const char *value, size_t size) {
+inline void ClientInfo::set_address(const char *value, size_t size) {
   set_has_address();
   address_.SetNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char *>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:challenge.ServerInfo.address)
+  // @@protoc_insertion_point(field_set_pointer:challenge.ClientInfo.address)
 }
-inline ::std::string *ServerInfo::mutable_address() {
+inline ::std::string *ClientInfo::mutable_address() {
   set_has_address();
-  // @@protoc_insertion_point(field_mutable:challenge.ServerInfo.address)
+  // @@protoc_insertion_point(field_mutable:challenge.ClientInfo.address)
   return address_.MutableNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string *ServerInfo::release_address() {
-  // @@protoc_insertion_point(field_release:challenge.ServerInfo.address)
+inline ::std::string *ClientInfo::release_address() {
+  // @@protoc_insertion_point(field_release:challenge.ClientInfo.address)
   clear_has_address();
   return address_.ReleaseNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ServerInfo::set_allocated_address(::std::string *address) {
+inline void ClientInfo::set_allocated_address(::std::string *address) {
   if (address != NULL) {
     set_has_address();
   } else {
@@ -252,100 +242,100 @@ inline void ServerInfo::set_allocated_address(::std::string *address) {
   }
   address_.SetAllocatedNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
-  // @@protoc_insertion_point(field_set_allocated:challenge.ServerInfo.address)
+  // @@protoc_insertion_point(field_set_allocated:challenge.ClientInfo.address)
 }
 
 // required int32 port = 2;
-inline bool ServerInfo::has_port() const {
+inline bool ClientInfo::has_port() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void ServerInfo::set_has_port() { _has_bits_[0] |= 0x00000002u; }
-inline void ServerInfo::clear_has_port() { _has_bits_[0] &= ~0x00000002u; }
-inline void ServerInfo::clear_port() {
+inline void ClientInfo::set_has_port() { _has_bits_[0] |= 0x00000002u; }
+inline void ClientInfo::clear_has_port() { _has_bits_[0] &= ~0x00000002u; }
+inline void ClientInfo::clear_port() {
   port_ = 0;
   clear_has_port();
 }
-inline ::google::protobuf::int32 ServerInfo::port() const {
-  // @@protoc_insertion_point(field_get:challenge.ServerInfo.port)
+inline ::google::protobuf::int32 ClientInfo::port() const {
+  // @@protoc_insertion_point(field_get:challenge.ClientInfo.port)
   return port_;
 }
-inline void ServerInfo::set_port(::google::protobuf::int32 value) {
+inline void ClientInfo::set_port(::google::protobuf::int32 value) {
   set_has_port();
   port_ = value;
-  // @@protoc_insertion_point(field_set:challenge.ServerInfo.port)
+  // @@protoc_insertion_point(field_set:challenge.ClientInfo.port)
 }
 
 // required int32 package_size = 3;
-inline bool ServerInfo::has_package_size() const {
+inline bool ClientInfo::has_package_size() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void ServerInfo::set_has_package_size() { _has_bits_[0] |= 0x00000004u; }
-inline void ServerInfo::clear_has_package_size() {
+inline void ClientInfo::set_has_package_size() { _has_bits_[0] |= 0x00000004u; }
+inline void ClientInfo::clear_has_package_size() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void ServerInfo::clear_package_size() {
+inline void ClientInfo::clear_package_size() {
   package_size_ = 0;
   clear_has_package_size();
 }
-inline ::google::protobuf::int32 ServerInfo::package_size() const {
-  // @@protoc_insertion_point(field_get:challenge.ServerInfo.package_size)
+inline ::google::protobuf::int32 ClientInfo::package_size() const {
+  // @@protoc_insertion_point(field_get:challenge.ClientInfo.package_size)
   return package_size_;
 }
-inline void ServerInfo::set_package_size(::google::protobuf::int32 value) {
+inline void ClientInfo::set_package_size(::google::protobuf::int32 value) {
   set_has_package_size();
   package_size_ = value;
-  // @@protoc_insertion_point(field_set:challenge.ServerInfo.package_size)
+  // @@protoc_insertion_point(field_set:challenge.ClientInfo.package_size)
 }
 
 // required string file_name = 4;
-inline bool ServerInfo::has_file_name() const {
+inline bool ClientInfo::has_file_name() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void ServerInfo::set_has_file_name() { _has_bits_[0] |= 0x00000008u; }
-inline void ServerInfo::clear_has_file_name() { _has_bits_[0] &= ~0x00000008u; }
-inline void ServerInfo::clear_file_name() {
+inline void ClientInfo::set_has_file_name() { _has_bits_[0] |= 0x00000008u; }
+inline void ClientInfo::clear_has_file_name() { _has_bits_[0] &= ~0x00000008u; }
+inline void ClientInfo::clear_file_name() {
   file_name_.ClearToEmptyNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
   clear_has_file_name();
 }
-inline const ::std::string &ServerInfo::file_name() const {
-  // @@protoc_insertion_point(field_get:challenge.ServerInfo.file_name)
+inline const ::std::string &ClientInfo::file_name() const {
+  // @@protoc_insertion_point(field_get:challenge.ClientInfo.file_name)
   return file_name_.GetNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ServerInfo::set_file_name(const ::std::string &value) {
+inline void ClientInfo::set_file_name(const ::std::string &value) {
   set_has_file_name();
   file_name_.SetNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:challenge.ServerInfo.file_name)
+  // @@protoc_insertion_point(field_set:challenge.ClientInfo.file_name)
 }
-inline void ServerInfo::set_file_name(const char *value) {
+inline void ClientInfo::set_file_name(const char *value) {
   set_has_file_name();
   file_name_.SetNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:challenge.ServerInfo.file_name)
+  // @@protoc_insertion_point(field_set_char:challenge.ClientInfo.file_name)
 }
-inline void ServerInfo::set_file_name(const char *value, size_t size) {
+inline void ClientInfo::set_file_name(const char *value, size_t size) {
   set_has_file_name();
   file_name_.SetNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char *>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:challenge.ServerInfo.file_name)
+  // @@protoc_insertion_point(field_set_pointer:challenge.ClientInfo.file_name)
 }
-inline ::std::string *ServerInfo::mutable_file_name() {
+inline ::std::string *ClientInfo::mutable_file_name() {
   set_has_file_name();
-  // @@protoc_insertion_point(field_mutable:challenge.ServerInfo.file_name)
+  // @@protoc_insertion_point(field_mutable:challenge.ClientInfo.file_name)
   return file_name_.MutableNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string *ServerInfo::release_file_name() {
-  // @@protoc_insertion_point(field_release:challenge.ServerInfo.file_name)
+inline ::std::string *ClientInfo::release_file_name() {
+  // @@protoc_insertion_point(field_release:challenge.ClientInfo.file_name)
   clear_has_file_name();
   return file_name_.ReleaseNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ServerInfo::set_allocated_file_name(::std::string *file_name) {
+inline void ClientInfo::set_allocated_file_name(::std::string *file_name) {
   if (file_name != NULL) {
     set_has_file_name();
   } else {
@@ -353,29 +343,7 @@ inline void ServerInfo::set_allocated_file_name(::std::string *file_name) {
   }
   file_name_.SetAllocatedNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_name);
-  // @@protoc_insertion_point(field_set_allocated:challenge.ServerInfo.file_name)
-}
-
-// required int32 timeout_ms = 5;
-inline bool ServerInfo::has_timeout_ms() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void ServerInfo::set_has_timeout_ms() { _has_bits_[0] |= 0x00000010u; }
-inline void ServerInfo::clear_has_timeout_ms() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void ServerInfo::clear_timeout_ms() {
-  timeout_ms_ = 0;
-  clear_has_timeout_ms();
-}
-inline ::google::protobuf::int32 ServerInfo::timeout_ms() const {
-  // @@protoc_insertion_point(field_get:challenge.ServerInfo.timeout_ms)
-  return timeout_ms_;
-}
-inline void ServerInfo::set_timeout_ms(::google::protobuf::int32 value) {
-  set_has_timeout_ms();
-  timeout_ms_ = value;
-  // @@protoc_insertion_point(field_set:challenge.ServerInfo.timeout_ms)
+  // @@protoc_insertion_point(field_set_allocated:challenge.ClientInfo.file_name)
 }
 
 #endif // !PROTOBUF_INLINE_NOT_IN_HEADERS

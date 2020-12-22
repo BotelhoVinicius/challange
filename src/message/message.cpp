@@ -5,6 +5,8 @@
 #include <string>
 #include <time.h>
 
+static const int TIMEZONE_ADJUST{10800};
+
 namespace challenge {
 namespace message {
 
@@ -58,9 +60,18 @@ bool Message::Write(std::string location) {
         !location.empty()) {
       location = location + "/";
     }
-    std::fstream output(location + message.prefix() +
-                            std::to_string(message.time_stamp()) +
-                            std::string("_") + std::to_string(messageIndex),
+
+    std::string date;
+    {
+      time_t time = message.time_stamp() - TIMEZONE_ADJUST;
+      struct tm *ptm = localtime(&time);
+      char buffer[80];
+      strftime(buffer, 80, "%Y%m%d%H%M%S", ptm);
+      date = std::string(buffer);
+    }
+
+    std::fstream output(location + message.prefix() + date + std::string("_") +
+                            std::to_string(messageIndex),
                         std::ios::out | std::ios::trunc | std::ios::binary);
     if (!output) {
       success &= false;

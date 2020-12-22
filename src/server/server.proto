@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+package challenge;
+
+message ServerInfo {
+  required int32 port = 1;
+  required string file_path = 2;
+  required int32 timeout_ms = 3;
+}

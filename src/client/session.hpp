@@ -8,7 +8,7 @@ namespace session {
 class Session {
 public:
   Session();
-  ~Session(){};
+  ~Session() { delete resolver_; };
 
   void Start(std::string address, std::string port);
   void Stop();

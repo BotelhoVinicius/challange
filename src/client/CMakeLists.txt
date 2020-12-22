@@ -8,7 +8,6 @@ add_library(
   Client
   STATIC
     client.cpp client.pb.cc)
-
 target_link_libraries(Client
   Message Session
   ${PROTOBUF_LIBRARY}
@@ -18,7 +17,15 @@ add_library(
   Session
   STATIC
     session.cpp)
-
 target_link_libraries(Session
   pthread
   boost_system)
+
+add_executable(
+  ClientApp main.cpp)
+target_link_libraries(ClientApp Client)
+
+
+add_executable(
+  CreateClientConfig config.cpp)
+target_link_libraries(CreateClientConfig Client)
