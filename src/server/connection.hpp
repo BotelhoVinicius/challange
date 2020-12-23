@@ -22,9 +22,7 @@ public:
              int32_t timeout_ms)
       : socket_(io_service), filePath_(filePath),
         timer_(io_service, boost::posix_time::milliseconds(timeout_ms)),
-        timeout_ms_(timeout_ms) {
-    timer_.cancel();
-  }
+        timeout_ms_(timeout_ms) {}
   ~Connection() {
     std::cout << "Writing new file" << std::endl;
     file_.Write(filePath_);
@@ -39,24 +37,26 @@ private:
     std::cout << "Waiting new message..." << std::endl;
     auto ptr = shared_from_this();
     if (ptr != nullptr) {
+      timer_.expires_from_now(boost::posix_time::milliseconds(timeout_ms_));
+      timer_.async_wait(boost::bind(&Connection::HandleTimeout, ptr,
+                                    boost::asio::placeholders::error));
       boost::asio::async_read_until(
           socket_, message_, "\n",
           boost::bind(&Connection::HandleRead, ptr,
                       boost::asio::placeholders::error,
                       boost::asio::placeholders::bytes_transferred));
-      timer_.cancel();
-      timer_.async_wait(boost::bind(&Connection::HandleTimeout, ptr,
-                                    boost::asio::placeholders::error));
     }
   }
 
   void HandleWrite(const boost::system::error_code &, size_t) {}
   void HandleTimeout(const boost::system::error_code &error) {
-    if (!error) {
+    if (error != 0) {
       return;
     }
-    std::cerr << "Connection Timeouted" << std::endl;
-    socket_.close();
+    {
+      std::cerr << "Connection Timeouted." << std::endl;
+      socket_.close();
+    }
   }
   void HandleRead(const boost::system::error_code &error,
                   size_t bytesTransferred) {
@@ -82,6 +82,8 @@ private:
         message_.consume(bytesTransferred);
       }
       Read();
+    } else {
+      timer_.cancel();
     }
   }
 
