@@ -8,6 +8,7 @@
 <b>Build docker image:</b>
 <br />
   make build-image<br />
+  docker network create challenge-network<br />
 <br />
 <b>Build source files:</b>
 <br />

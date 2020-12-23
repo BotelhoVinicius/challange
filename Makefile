@@ -19,7 +19,7 @@ DOCKER_RUN_COMMON:= docker run --rm \
   --name challenge-$(shell date +%s) \
   --volume $(HOST_SHARED_VOLUME):$(GUEST_SHARED_VOLUME) \
   --volume $(HOST_SHARED_DIR):$(GUEST_WORK_DIR) \
-	--network $(DOCKER_NETWORK) \
+  --network $(DOCKER_NETWORK) \
   --workdir $(GUEST_WORK_DIR)
 
 DOCKER_RUN:= $(DOCKER_RUN_COMMON) \
