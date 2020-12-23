@@ -1,9 +1,10 @@
-# Necessaries tools and Infos
-
-  Necessary tools to build: make and docker.
-  To run binaries on host machine check Dockerfile to preview list of dependecies.
-  Disclaimer: Boost versio 1.62
-
+# Necessary tools and Infos
+<br />
+  - make<br />
+  - docker<br />
+  To run binaries on host machine check Dockerfile to preview list of dependecies.<br />
+  Disclaimer: Boost version 1.62<br />
+ <br />
 # Tutorial
 <b>Build docker image:</b>
 <br />
